@@ -21,6 +21,7 @@ public class JwtPsyFactory {
                 psychologist.getEmail(),
                 psychologist.getPassword(),
                 psychologist.isStatus(),
+                psychologist.isRegistered(),
                 mapToGrantedAuthorities(psychologist.getRoles())
         );
     }

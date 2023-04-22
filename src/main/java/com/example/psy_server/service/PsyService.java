@@ -18,10 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -31,16 +28,19 @@ public class PsyService {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final CertificateRepository certificateRepository;
     private final CertificateService certificateService;
+    private MailSender mailSender;
 
     @Autowired
     public PsyService(PsyRepository psyRepository,
                       BCryptPasswordEncoder bCryptPasswordEncoder,
                       CertificateRepository certificateRepository,
-                      CertificateService certificateService){
+                      CertificateService certificateService,
+                      MailSender mailSender){
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.psyRepository = psyRepository;
         this.certificateRepository = certificateRepository;
         this.certificateService = certificateService;
+        this.mailSender = mailSender;
     }
 
     public Psychologist register(RegisterRequest registerRequest){
@@ -66,9 +66,18 @@ public class PsyService {
         psychologist.setRoles(roles);
         psychologist.setStatus(false);
         psychologist.setCertificates(certificates);
+        psychologist.setActivationCode(UUID.randomUUID().toString());
 
         Psychologist registerPsy = psyRepository.save(psychologist);
         certificateService.addPsyToCertificate(registerRequest.getCertificates(), registerPsy);
+
+        String message = String.format(
+                "Hello, %s! \n" +
+                        "Welcome to psyHelper. Please, visit next link: http://localhost:8080/api/auth/activate/%s",
+                psychologist.getEmail(), psychologist.getActivationCode()
+        );
+        mailSender.send(psychologist.getEmail(), "Activation code", message);
+
         log.info("IN register - psychologist: {} successfully registered", registerPsy);
         return registerPsy;
     }
@@ -126,5 +135,15 @@ public class PsyService {
         psychologist.setName(editPsy.getName());
         psychologist.setDescription(editPsy.getDescription());
         return psyRepository.save(psychologist);
+    }
+
+    public boolean activatePsy(String code) {
+        Psychologist psychologist = psyRepository.findByActivationCode(code)
+                .orElseThrow(() -> new UsernameNotFoundException("NOT Psychologist with code"));
+        psychologist.setActivationCode(null);
+        psychologist.setRegistered(true);
+
+        psyRepository.save(psychologist);
+        return psychologist.isRegistered();
     }
 }

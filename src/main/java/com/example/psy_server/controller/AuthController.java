@@ -66,6 +66,16 @@ public class AuthController {
         return ResponseEntity.ok(psychologist);
     }
 
+    @GetMapping("/activate/{code}")
+    public ResponseEntity<Object> activate(@PathVariable String code){
+        boolean isActivated = psyService.activatePsy(code);
+
+        if(!isActivated){
+            return new ResponseEntity<>(isActivated, HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(isActivated, HttpStatus.OK);
+    }
+
     @PostMapping("login")
     public ResponseEntity login(@RequestBody @Valid AuthReqDto authReqDto,
                                 BindingResult bindingResult){

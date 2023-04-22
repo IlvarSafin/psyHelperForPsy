@@ -9,4 +9,5 @@ import java.util.Optional;
 @Repository
 public interface PsyRepository extends JpaRepository<Psychologist, Integer> {
     Optional<Psychologist> findByEmail(String email);
+    Optional<Psychologist> findByActivationCode(String code);
 }

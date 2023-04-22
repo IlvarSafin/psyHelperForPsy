@@ -47,6 +47,10 @@ public class Psychologist{
     @Type(type = "org.hibernate.type.ImageType")
     @Column(name="photo")
     private byte[] photo;
+    @Column(name="activation_code")
+    private String activationCode;
+    @Column(name = "registered")
+    private boolean registered;
 
     @JsonIgnore
     @OneToMany(mappedBy = "psychologist")

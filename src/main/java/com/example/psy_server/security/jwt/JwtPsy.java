@@ -8,17 +8,19 @@ import java.util.Collection;
 public class JwtPsy implements UserDetails {
     private int id;
     private String name;
-    private String login;
+    private String email;
     private String password;
     private boolean status;
+    private boolean registered;
     private Collection<? extends GrantedAuthority> authorities;
 
-    public JwtPsy(int id, String name, String login, String password, boolean status, Collection<? extends GrantedAuthority> authorities) {
+    public JwtPsy(int id, String name, String email, String password, boolean status, boolean registered, Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.name = name;
-        this.login = login;
+        this.email = email;
         this.password = password;
         this.status = status;
+        this.registered = registered;
         this.authorities = authorities;
     }
 
@@ -42,7 +44,7 @@ public class JwtPsy implements UserDetails {
 
     @Override
     public String getUsername() {
-        return login;
+        return email;
     }
 
     @Override
@@ -62,6 +64,6 @@ public class JwtPsy implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return status;
+        return registered;
     }
 }

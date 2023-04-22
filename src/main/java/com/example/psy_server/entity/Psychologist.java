@@ -9,6 +9,7 @@ import lombok.Setter;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.util.HashSet;
@@ -32,10 +33,10 @@ public class Psychologist{
     private double estimation;
     @Column(name = "status")
     private boolean status;
-    @Column(name = "login")
-    @NotEmpty(message = "Login should not be empty")
-    @Size(min = 6, message = "Login should be bigger 8 characters")
-    private String login;
+    @Column(name = "email")
+    @NotEmpty(message = "Email should not be empty")
+    @Email
+    private String email;
     @NotEmpty(message = "Password should not be empty")
     @Size(min = 8, message = "Password should be bigger 8 characters")
     @Column(name = "password")
@@ -60,4 +61,8 @@ public class Psychologist{
     @CollectionTable(name = "psy_role",
             joinColumns = @JoinColumn(name = "psy_id"))
     private Set<ERole> roles = new HashSet<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "psychologist")
+    private List<Certificate> certificates;
 }

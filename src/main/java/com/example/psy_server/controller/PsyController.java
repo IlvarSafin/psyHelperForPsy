@@ -1,10 +1,12 @@
 package com.example.psy_server.controller;
 
 import com.example.psy_server.entity.Appointment;
+import com.example.psy_server.entity.Certificate;
 import com.example.psy_server.entity.Psychologist;
 import com.example.psy_server.repository.AppointmentRepository;
 import com.example.psy_server.repository.PsyRepository;
 import com.example.psy_server.service.AppointmentService;
+import com.example.psy_server.service.CertificateService;
 import com.example.psy_server.service.PsyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,6 +25,7 @@ public class PsyController {
     private final PsyRepository psyRepository;
     private final AppointmentRepository appointmentRepository;
     private final AppointmentService appointmentService;
+
 
     @Autowired
     public PsyController(PsyService psyService,

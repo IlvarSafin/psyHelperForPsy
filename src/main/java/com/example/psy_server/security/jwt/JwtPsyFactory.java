@@ -5,7 +5,6 @@ import com.example.psy_server.entity.enums.ERole;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
-import javax.management.relation.Role;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -19,7 +18,7 @@ public class JwtPsyFactory {
         return new JwtPsy(
                 psychologist.getId(),
                 psychologist.getName(),
-                psychologist.getLogin(),
+                psychologist.getEmail(),
                 psychologist.getPassword(),
                 psychologist.isStatus(),
                 mapToGrantedAuthorities(psychologist.getRoles())

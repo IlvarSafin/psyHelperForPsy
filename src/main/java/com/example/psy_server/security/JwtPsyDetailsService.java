@@ -4,7 +4,6 @@ import com.example.psy_server.entity.Psychologist;
 import com.example.psy_server.repository.PsyRepository;
 import com.example.psy_server.security.jwt.JwtPsy;
 import com.example.psy_server.security.jwt.JwtPsyFactory;
-import com.example.psy_server.service.PsyService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -25,8 +24,8 @@ public class JwtPsyDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Psychologist psychologist = psyRepository.findByLogin(username)
-                .orElseThrow(() -> new UsernameNotFoundException("username not found"));
+        Psychologist psychologist = psyRepository.findByEmail(username)
+                .orElseThrow(() -> new UsernameNotFoundException("email not found"));
 
         JwtPsy jwtPsy = JwtPsyFactory.create(psychologist);
         log.info("IN loadUserByUsername user with username: {} successfully loaded", username);

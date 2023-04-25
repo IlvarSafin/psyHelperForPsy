@@ -1,5 +1,6 @@
 package com.example.psy_server.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,6 +22,7 @@ public class Certificate {
     @Column(name = "image")
     private byte[] image;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "psy_id", referencedColumnName = "id")
     private Psychologist psychologist;

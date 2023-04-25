@@ -73,7 +73,7 @@ public class PsyService {
 
         String message = String.format(
                 "Hello, %s! \n" +
-                        "Welcome to psyHelper. Please, visit next link: http://localhost:8080/api/auth/activate/%s",
+                        "Welcome to psyHelper. Please, visit next link: http://localhost:4200/activate/%s",
                 psychologist.getEmail(), psychologist.getActivationCode()
         );
         mailSender.send(psychologist.getEmail(), "Activation code", message);

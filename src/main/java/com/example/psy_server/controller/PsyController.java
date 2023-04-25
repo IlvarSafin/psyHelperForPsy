@@ -67,11 +67,13 @@ public class PsyController {
         return ResponseEntity.ok(appointmentService.createAppDto(appointment));
     }
 
-    @PostMapping("appointment/{id}/cancel")
-    public ResponseEntity cancelAppointment(@RequestBody Appointment appointment){
-        appointment.setStatus(false);
-        Appointment appointmentRes = appointmentRepository.save(appointment);
-        return ResponseEntity.ok(appointmentRes);
+    @PostMapping("appointment/{id}/finishing")
+    public ResponseEntity<?> finishAppointment(@PathVariable("id") int id){
+        boolean saved = appointmentService.finishingAppointment(id);
+        if (saved){
+            return new ResponseEntity<>(saved, HttpStatus.OK);
+        }
+        return new ResponseEntity(saved, HttpStatus.OK);
     }
 
     @GetMapping("myProfile")

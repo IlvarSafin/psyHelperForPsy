@@ -38,6 +38,7 @@ public class AdminController {
     @GetMapping("psy/{id}")
     public ResponseEntity showPsy(@PathVariable("id") int id){
         Psychologist psychologist = psyService.findPsyById(id);
+        System.out.println("11111111111111  " + psychologist.getCertificates());
         return ResponseEntity.ok(psychologist);
     }
 

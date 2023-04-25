@@ -32,10 +32,14 @@ public class Client{
     @Email
     @Column(name = "email")
     private String email;
+    @Column(name = "activation_code")
+    private String activationCode;
     @NotEmpty(message = "Password should not be empty")
     @Size(min = 8, message = "Password should be bigger 8 characters")
     @Column(name = "password")
     private String password;
+    @Column(name = "status")
+    private boolean status;
     @Lob
     @Type(type = "org.hibernate.type.ImageType")
     @Column(name = "photo")

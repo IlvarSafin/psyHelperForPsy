@@ -66,7 +66,6 @@ public class Psychologist{
             joinColumns = @JoinColumn(name = "psy_id"))
     private Set<ERole> roles = new HashSet<>();
 
-    @JsonIgnore
     @OneToMany(mappedBy = "psychologist")
     private List<Certificate> certificates;
 }

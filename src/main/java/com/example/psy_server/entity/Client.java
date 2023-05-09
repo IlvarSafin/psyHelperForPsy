@@ -40,6 +40,8 @@ public class Client{
     private String password;
     @Column(name = "status")
     private boolean status;
+    @Column(name = "money")
+    private double money;
     @Lob
     @Type(type = "org.hibernate.type.ImageType")
     @Column(name = "photo")

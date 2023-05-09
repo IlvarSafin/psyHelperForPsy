@@ -65,6 +65,8 @@ public class PsyService {
         psychologist.setDescription(registerRequest.getDescription());
         psychologist.setRoles(roles);
         psychologist.setStatus(false);
+        psychologist.setPrice(registerRequest.getPrice());
+        psychologist.setSex(registerRequest.getSex());
         psychologist.setCertificates(certificates);
         psychologist.setActivationCode(UUID.randomUUID().toString());
 

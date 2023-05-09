@@ -11,6 +11,7 @@ import org.hibernate.annotations.Type;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.List;
@@ -51,6 +52,12 @@ public class Psychologist{
     private String activationCode;
     @Column(name = "registered")
     private boolean registered;
+    @Column(name = "sex")
+    @NotEmpty(message = "Sex should not be empty")
+    private String sex;
+    @Column(name = "price")
+    @NotNull(message = "Price cannot be null")
+    private Double price;
 
     @JsonIgnore
     @OneToMany(mappedBy = "psychologist")

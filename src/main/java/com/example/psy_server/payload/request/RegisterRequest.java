@@ -3,6 +3,7 @@ package com.example.psy_server.payload.request;
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
 
@@ -21,6 +22,10 @@ public class RegisterRequest {
     private String name;
     @NotEmpty(message = "Description cannot be empty")
     private String description;
+    @NotEmpty(message = "Sex cannot be empty")
+    private String sex;
+    @NotNull(message = "Price cannot be null")
+    private Double price;
 
     private List<Integer> certificates;
 }
